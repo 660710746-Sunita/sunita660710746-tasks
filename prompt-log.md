@@ -59,3 +59,17 @@
 ### แก้รอบที่ 2
 - ทีมสั่ง: เปลี่ยนจากร่างเป็นใช้ได้
 - AI อัปเดตสถานะแถว AC-BKG-01 ใน [specs/001-booking/test-cases.md](specs/001-booking/test-cases.md) เป็น "ใช้ได้" และเริ่มโหมดเขียน test ตามแถวที่ตรวจแล้ว
+
+## 2569-10-07 08:30 คำสั่ง: /verify specs/001-booking/
+
+- เครื่องมือ: Copilot ใน Codespaces (Agent, Auto)
+- ผลลัพธ์: สร้าง [specs/001-booking/rtm.md](specs/001-booking/rtm.md) แผนภูมิ traceability ตามรอย requirement → AC → task → code → test
+- รัน test หลังบ้าน: `cd backend && pytest -v` พบ 6 passed
+- จัดกลุ่มสถานะตามคำแนะนำ: AC-BKG-01 เป็น "ครบ" แต่มีข้อค้นพบเรื่อง Q-02 และการเดา `A001` โดยไม่มีคำตอบจาก spec, FR-BKG-01 ยังใช้ 14 วันแทน 30 วัน, และมี feature เพิ่มเติม `DELETE /bookings/{id}` ที่อยู่นอก Out of scope
+- ไม่แก้โค้ดระบบตามเงื่อนไขของ /verify
+- ตรวจ `git status --short` หลัง /verify: ไม่มีไฟล์ใน `app/` หรือ `backend/tests/` ที่ถูกแก้/เปลี่ยนแปลง จึงไม่ต้องใช้ `git restore`
+
+### แก้รอบที่ 3
+- ทีมสรุปข้อค้นพบใหม่: แยก "จริง / ยังไม่ถึง / AI เข้าใจผิด" ใน [specs/001-booking/rtm.md](specs/001-booking/rtm.md)
+- `FR-BKG-06` ถูกจัดว่าเป็นช่องโหว่ใน spec และ `FR-BKG-01` ถูกระบุว่า “มีแต่ AC ความเร็ว” จึงไม่ควรตีความว่าครบ
+- `DELETE /bookings/{id}` ถูกระบุว่าเป็นจุดที่ 3: feature เสริมที่อ้าง ID ผิดเรื่อง และไม่ใช่คำตัดสินจากทีม
