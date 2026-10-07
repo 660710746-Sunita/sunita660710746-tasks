@@ -11,11 +11,8 @@ class SlotFullError(Exception):
 
 
 def next_queue_no(db: Session, slot_date) -> str:
-    """ออกหมายเลขคิวรูปแบบ A001 เริ่มนับใหม่ทุกวัน (FR-BKG-04)"""
-    count = db.scalar(
-        select(func.count()).select_from(Booking).where(Booking.booking_date == slot_date)
-    )
-    return f"A{count + 1:03d}"
+    """รอคำตอบ Q-02 ก่อนกำหนดรูปแบบและลำดับเลขคิว (FR-BKG-04)"""
+    return ""
 
 
 def create_booking(db: Session, hn: str, slot_id: int) -> Booking:
